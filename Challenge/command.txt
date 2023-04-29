@@ -1,0 +1,1 @@
+g++ Challenge.cpp MainMenu.hpp MainMenu.cpp -o executable -lsfml-graphics -lsfml-window -lsfml-system
