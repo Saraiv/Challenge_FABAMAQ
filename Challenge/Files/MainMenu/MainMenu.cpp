@@ -1,6 +1,18 @@
+/**
+ * Author: Saraiva 
+ * Email: mainsaraiva@gmail.com
+ * Github: Saraiv
+ * Date: 03/05/2023
+ * Description: Módulos de implementação do menu.
+*/
+
 #include"MainMenu.hpp"
 
-//Construtor
+/**
+ * Construtor do menu inicial
+ * @param [in] width // Largura da janela
+ * @param [in] height // Altura da janela
+*/
 MainMenu::MainMenu(float width, float height){
     if(!font.loadFromFile("Fonts/font.TTF"))
         std::cout << "No font!";
@@ -53,11 +65,17 @@ MainMenu::MainMenu(float width, float height){
     mainMenu[3].setPosition(200.f, 400.f);
 }
 
-//Destrutor
+/**
+ * Destrutor do menu inicial
+*/
 MainMenu::~MainMenu(){
 
 }
 
+/**
+ * Desenhar no ecrã tudo o que foi criado
+ * @param [in] window // Receber por parametro a própria janela
+*/
 void MainMenu::draw(sf::RenderWindow& window){
     window.draw(creditsText);
     window.draw(bettingText);
@@ -66,6 +84,9 @@ void MainMenu::draw(sf::RenderWindow& window){
     }
 }
 
+/**
+ * Mover a opção selecionada do menu para cima
+*/
 void MainMenu::MoveUp(){
     if(mainMenuSelected - 1 >= 0){
         mainMenu[mainMenuSelected].setFillColor(sf::Color::White);
@@ -76,6 +97,9 @@ void MainMenu::MoveUp(){
     }
 }
 
+/**
+ * Mover a opção selecionada do menu para baixo
+*/
 void MainMenu::MoveDown(){
     if(mainMenuSelected - 1 <= MaxMM){
         mainMenu[mainMenuSelected].setFillColor(sf::Color::White);
@@ -90,6 +114,10 @@ void MainMenu::MoveDown(){
     }
 }
 
+/**
+ * Remove os créditos que o player decide remover, um a um e acrescenta o valor apostado
+ * já atualizando o texto no ecrã
+*/
 void MainMenu::RemoveCredits(){
     if(credits > 0){
         credits--;
@@ -101,6 +129,10 @@ void MainMenu::RemoveCredits(){
         std::cout << "Não tem créditos suficientes para apostar!" << std::endl;
 }
 
+/**
+ * Adiciona os créditos que o player decide adicionar, um a um e remove o valor apostado
+ * já atualizando o texto no ecrã
+*/
 void MainMenu::ReturnCredits(){
     if(credits > 0 && credits < startingCredits && bettingValue > 0){
         credits++;
@@ -112,23 +144,43 @@ void MainMenu::ReturnCredits(){
         std::cout << "Não há mais créditos para retornar!" << std::endl;
 }
 
+/**
+ * Retorna os créditos do jogador
+ * @param [out] credits
+*/
 int MainMenu::GetCredits(){
     return credits;
 }
 
+/**
+ * Dá os créditos ganhos pelo jogador e fecha a janela
+ * @param [in] givenCredits //Créditos apostados
+ * @param [in] window //Própria janela do jogo
+*/
 void MainMenu::GiveCredits(int givenCredits, sf::RenderWindow& window){
     credits += givenCredits;
     window.close();
 }
 
+/**
+ * Retorna o valor apostado pelo jogador
+ * @param [out] bettingValue
+*/
 int MainMenu::GetBettingValue(){
     return bettingValue;
 }
 
+/**
+ * Verifica se o jogador apostou ou não.
+ * @param [out] bool
+*/
 bool MainMenu::CheckIfCanPlay(){
     return (bettingValue > 0) ? true : false;
 }
 
+/**
+ * Atualiza o texto no ecrã.
+*/
 void MainMenu::UpdateText(){
     bettingValue = 0;
     creditsText.setString(std::to_string(credits));

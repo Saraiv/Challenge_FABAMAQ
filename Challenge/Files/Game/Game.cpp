@@ -1,6 +1,19 @@
+/**
+ * Author: Saraiva 
+ * Email: mainsaraiva@gmail.com
+ * Github: Saraiv
+ * Date: 03/05/2023
+ * Description: Módulos de implementação do jogo.
+*/
+
 #include"Game.hpp"
 
-//Construtor
+/**
+ * Construtor do menu inicial
+ * @param [in] width // Largura da janela
+ * @param [in] height // Altura da janela
+ * @param [in] playerPlays // Jogadas do jogador
+*/
 Game::Game(float width, float height, int playerPlays){
     if(!font.loadFromFile("Fonts/font.TTF"))
         std::cout << "No font!";
@@ -35,11 +48,17 @@ Game::Game(float width, float height, int playerPlays){
     speed = 1.f;
 }
 
-//Destrutor
+/**
+ * Destrutor do menu inicial
+*/
 Game::~Game(){
 
 }
 
+/**
+ * Desenhar no ecrã tudo o que foi criado
+ * @param [in] window // Receber por parametro a própria janela
+*/
 void Game::draw(sf::RenderWindow& window){
     window.draw(playsText);
     window.draw(startGameText);
@@ -48,10 +67,18 @@ void Game::draw(sf::RenderWindow& window){
     }
 }
 
+/**
+ * Retorna um raio aleatório para o circulo
+ * @param [out] float
+*/
 float Game::RandomRadious(){
     return static_cast<float>(10 + rand() % 10);
 }
 
+/**
+ * Atualiza as jogadas, atualiza estado do jogador e dos circulos, o texto e o relógio de jogo
+ * @param [in] window // Janela do próprio jogo
+*/
 void Game::RemovePlays(sf::RenderWindow& window){
     if(playerPlays > 0 && !WinOrLose()){
         playsText.setString(std::to_string(--playerPlays));
@@ -73,10 +100,18 @@ void Game::RemovePlays(sf::RenderWindow& window){
     }
 }
 
+/**
+ * Retorna o número de jogadas do jogador
+ * @param [out] playerPlays
+*/
 int Game::GetPlays(){
     return playerPlays;
 }
 
+/**
+ * Retorna uma posição aleatória para onde o circulo vai aparecer no ecrã
+ * @param [out] pos
+*/
 Game::Position Game::RandomPosition(){
     Game::Position pos;
     pos.x = static_cast<float>(rand() % 800);
@@ -85,6 +120,10 @@ Game::Position Game::RandomPosition(){
     return pos;
 }
 
+/**
+ * Retorna uma cor aleatórea para o circulo
+ * @param [out] color
+*/
 sf::Color Game::RandomColor(){
     int random = rand() % 5;
     switch (random) {
@@ -103,6 +142,10 @@ sf::Color Game::RandomColor(){
     }
 }
 
+/**
+ * Verifica se na zona onde o jogador clicou tem um circuclo 
+ * @param [out] bool
+*/
 bool Game::CheckIfClickedCircle(sf::Event::MouseButtonEvent event){
     for(int i = 0; i < MAXCIRCLES; i++){
         if(circles[i].getGlobalBounds().contains(event.x, event.y) && isCircleClickable){
@@ -115,14 +158,26 @@ bool Game::CheckIfClickedCircle(sf::Event::MouseButtonEvent event){
     return false;
 }
 
+/**
+ * Verifica se o jogador ganhou ou perdeu
+ * @param [out] bool
+*/
 bool Game::WinOrLose(){
     return points == MAXCIRCLES ? true : false;
 }
 
+/**
+ * Verifica se o estado do jogador está a jogar ou não
+ * @param [out] bool
+*/
 bool Game::CheckIfPlaying(){
     return isPlaying ? true : false;
 }
 
+/**
+ * Cérebro do jogo
+ * @param [in] window
+*/
 void Game::ManageIsPlaying(sf::RenderWindow& window){
     if(isPlaying && !WinOrLose()){
         timer = clock.getElapsedTime().asSeconds();

@@ -1,3 +1,11 @@
+/**
+ * Author: Saraiva 
+ * Email: mainsaraiva@gmail.com
+ * Github: Saraiv
+ * Date: 03/05/2023
+ * Description: Programa.
+*/
+
 #include<iostream>
 #include <SFML/Graphics.hpp>
 #include"./MainMenu/MainMenu.hpp"
