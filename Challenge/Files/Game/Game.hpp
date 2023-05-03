@@ -12,7 +12,7 @@
 #include<chrono>
 
 //Número de circulos que aparecem no ecrã
-#define MAXCIRCLES 10
+#define MAXCIRCLES 50
 
 class Game{
     public:
