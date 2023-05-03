@@ -1,0 +1,7 @@
+*.o
+*.bat
+*.txt
+*.dll
+SFML-2.5.1/
+.vscode/
+*.hpp.gch
